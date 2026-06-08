@@ -14,9 +14,6 @@ The pipeline demonstrates best practices including:
 - Data quality validation and checks
 - Proper database connection management
 - Professional documentation
-
-Author: Corinne Mobley
-Date: June 2026
 """
 
 import os
