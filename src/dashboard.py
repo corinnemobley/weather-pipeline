@@ -11,9 +11,6 @@ Features:
 - Business insights for gardeners
 - Responsive design
 - Live database connectivity
-
-Author: Corinne Mobley
-Date: June 2026
 """
 
 import os
