@@ -179,7 +179,7 @@ class DataAnalytics:
                 'precipitation': 'N/A'
             }
         
-        latest = self.daily_data.iloc[0]
+        latest = self.daily_data.sort_values('weather_date').iloc[-1]
         return {
             'date': pd.to_datetime(latest['weather_date']).strftime('%A, %B %d, %Y'),
             'temp_max': f"{latest['temp_max_f']:.1f}°F",
