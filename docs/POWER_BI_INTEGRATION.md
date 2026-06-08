@@ -3,11 +3,6 @@
 ## Overview
 This document outlines how to connect your PostgreSQL weather database to Power BI for interactive visualization.
 
-## Prerequisites
-- Power BI Desktop (free version available)
-- PostgreSQL running locally or on a cloud service
-- Database credentials
-
 ## Connection Steps
 
 ### 1. Install PostgreSQL ODBC Driver
@@ -127,14 +122,14 @@ High UV Days = COUNTROWS(FILTER('daily_weather', [uv_index] > 8))
 
 ## Best Practices
 
-✅ **DO:**
+**DO:**
 - Set up automatic ETL runs via GitHub Actions
 - Create separate Power BI workspaces for dev/prod
 - Use row-level security if sharing sensitive data
 - Schedule refreshes during off-peak hours
 - Keep Power BI Desktop and gateway updated
 
-❌ **DON'T:**
+**DON'T:**
 - Store plaintext passwords in Power BI
 - Share PBIX files with hardcoded credentials
 - Use direct SQL queries for every visualization (use datasets)
