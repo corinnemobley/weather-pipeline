@@ -1,8 +1,8 @@
-# 🌦️ Weather Pipeline
+# Weather Pipeline
 
 An end-to-end data engineering pipeline that acquires weather data from a REST API, processes it with Python, stores it in PostgreSQL, and visualizes it with Power BI.
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Open-Meteo API → Python ETL → PostgreSQL → Power BI Dashboard
@@ -11,16 +11,16 @@ Open-Meteo API → Python ETL → PostgreSQL → Power BI Dashboard
                  Validate       Tables       Visualizations
 ```
 
-## 📋 Features
+## Features
 
-- ✅ **Automated Data Collection**: Daily weather data from Open-Meteo API (free, no key required)
-- ✅ **Data Quality**: Error handling, logging, and validation
-- ✅ **Intelligent Storage**: Upsert logic to prevent duplicates
-- ✅ **Smart Alerts**: Frost, heat, and watering recommendations
-- ✅ **Scheduled Execution**: GitHub Actions workflow (runs daily at 6 AM EST)
-- ✅ **Production Ready**: Connection pooling, indexes, and error recovery
+- **Automated Data Collection**: Daily weather data from Open-Meteo API (free, no key required)
+- **Data Quality**: Error handling, logging, and validation
+- **Intelligent Storage**: Upsert logic to prevent duplicates
+- **Smart Alerts**: Frost, heat, and watering recommendations
+- **Scheduled Execution**: GitHub Actions workflow (runs daily at 6 AM EST)
+- **Production Ready**: Connection pooling, indexes, and error recovery
 
-## 📊 Database Schema
+## Database Schema
 
 ### Tables
 
@@ -42,7 +42,7 @@ recommendation_id (PK) | weather_date (FK) | frost_alert | heat_alert |
 watering_recommendation | planting_condition | created_at
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Prerequisites
 - Python 3.9+
@@ -93,7 +93,7 @@ Expected output:
 2026-06-02 14:30:48,912 - INFO - ✅ ETL PIPELINE COMPLETED SUCCESSFULLY
 ```
 
-## 📅 Automated Scheduling
+## Automated Scheduling
 
 The pipeline runs automatically via GitHub Actions every day at 6 AM EST.
 
@@ -108,7 +108,7 @@ To set up:
 
 3. Push to main branch - workflow automatically activates
 
-## 📊 Power BI Integration
+## Power BI Integration
 
 See [Power BI Integration Guide](docs/POWER_BI_INTEGRATION.md) for:
 - Connecting Power BI Desktop to PostgreSQL
@@ -116,7 +116,7 @@ See [Power BI Integration Guide](docs/POWER_BI_INTEGRATION.md) for:
 - Setting up automated refresh schedules
 - Best practices and troubleshooting
 
-## 📈 Query Examples
+## Query Examples
 
 Check current weather:
 ```sql
@@ -143,7 +143,7 @@ ORDER BY DATE DESC
 LIMIT 30;
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Change Location
 Edit `src/etl_pipeline.py`:
@@ -166,7 +166,7 @@ schedule:
 
 [Cron expression reference](https://crontab.guru/)
 
-## 📚 Project Structure
+## Project Structure
 
 ```
 weather-pipeline/
@@ -182,7 +182,7 @@ weather-pipeline/
 └── README.md                    # This file
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Error: "connection refused"
 ```bash
@@ -202,14 +202,14 @@ cat .env
 psql -U postgres -d garden_weather_db -c "\dt"
 ```
 
-## 📝 Logging
+## Logging
 
 Logs are printed to console. For persistent logs:
 ```bash
 python src/etl_pipeline.py >> logs/etl_$(date +%Y%m%d_%H%M%S).log 2>&1
 ```
 
-## 📦 Dependencies
+## Dependencies
 
 | Package | Version | Purpose |
 |---------|---------|---------|
@@ -219,7 +219,7 @@ python src/etl_pipeline.py >> logs/etl_$(date +%Y%m%d_%H%M%S).log 2>&1
 | psycopg2 | 2.9.9 | PostgreSQL adapter |
 | python-dotenv | 1.0.0 | Environment variable management |
 
-## 🎯 Future Enhancements
+## Future Improvements
 
 - [ ] Multi-location weather tracking
 - [ ] Historical weather archive (30+ years)
@@ -228,22 +228,3 @@ python src/etl_pipeline.py >> logs/etl_$(date +%Y%m%d_%H%M%S).log 2>&1
 - [ ] REST API for dashboard queries
 - [ ] Docker containerization
 - [ ] AWS/Azure cloud deployment
-
-## 📄 License
-
-MIT License - feel free to use this for personal or commercial projects
-
-## 🤝 Contributing
-
-Have ideas? Open an issue or submit a pull request!
-
-## 📞 Support
-
-For issues or questions:
-1. Check the [Power BI Integration Guide](docs/POWER_BI_INTEGRATION.md)
-2. Review [GitHub Issues](https://github.com/corinnemobley/weather-pipeline/issues)
-3. Open a new issue with detailed error logs
-
----
-
-**Built with ❤️ for the gardening community**
