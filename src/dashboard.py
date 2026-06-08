@@ -162,6 +162,9 @@ class DataAnalytics:
         self.daily_data = self.db.query_daily_weather()
         self.hourly_data = self.db.query_hourly_weather()
         self.recommendations = self.db.query_recommendations()
+        self.daily_data['weather_date'] = pd.to_datetime(self.daily_data['weather_date'])
+        self.daily_data = self.daily_data.sort_values('weather_date')
+        
         logger.info("Data loaded successfully")
     
     def refresh_data(self):
