@@ -42,14 +42,7 @@ recommendation_id (PK) | weather_date (FK) | frost_alert | heat_alert |
 watering_recommendation | planting_condition | created_at
 ```
 
-## Quick Start
-
-### 1. Prerequisites
-- Python 3.9+
-- PostgreSQL 12+
-- Git
-
-### 2. Setup
+### Setup
 
 Clone the repository:
 ```bash
@@ -73,7 +66,7 @@ cp .env.example .env
 # Edit .env with your PostgreSQL credentials
 ```
 
-### 3. Run ETL Pipeline
+### Run ETL Pipeline
 
 ```bash
 python src/etl_pipeline.py
@@ -106,7 +99,6 @@ To set up:
    - `DB_PORT`: Database port (default: `5432`)
    - `DB_NAME`: Database name (default: `garden_weather_db`)
 
-3. Push to main branch - workflow automatically activates
 
 ## Power BI Integration
 
@@ -163,8 +155,6 @@ Edit `.github/workflows/weather-etl.yml`:
 schedule:
   - cron: '0 11 * * *'  # Currently: 11 AM UTC = 6 AM EST
 ```
-
-[Cron expression reference](https://crontab.guru/)
 
 ## Project Structure
 
