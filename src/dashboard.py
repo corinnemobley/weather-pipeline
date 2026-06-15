@@ -203,11 +203,16 @@ class DataAnalytics:
         return (self.recommendations['heat_alert'] == True).sum()
     
     def get_avg_temperature(self):
-        """Calculate average temperature."""
-        if self.daily_data.empty:
-            return 'N/A'
-        avg = (self.daily_data['temp_max_f'].mean() + self.daily_data['temp_min_f'].mean()) / 2
-        return f"{avg:.1f}°F"
+    """Calculate average temperature as the midpoint between highs and lows."""
+    if self.daily_data.empty:
+        return 'N/A'
+    
+    # True average: (sum of all temps) / (number of temps)
+    total_temps = (self.daily_data['temp_max_f'].sum() + 
+                   self.daily_data['temp_min_f'].sum())
+    count_temps = len(self.daily_data) * 2  # 2 temps per day (high + low)
+    avg = total_temps / count_temps
+    return f"{avg:.1f}°F"
     
     def get_total_precipitation(self):
         """Calculate total precipitation."""
