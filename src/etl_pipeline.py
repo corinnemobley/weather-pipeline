@@ -367,21 +367,10 @@ def transform(data):
     """
     Complete transformation pipeline: clean, validate, and create derived metrics.
     
-    This function orchestrates the entire transformation process:
-    1. Extract daily and hourly data from API response
-    2. Clean and validate data quality
-    3. Create derived analytics metrics
-    4. Ensure all data types are correct
-    
-    Args:
-        data (dict): Raw JSON response from Open-Meteo API
-        
-    Returns:
-        tuple: (daily_weather, hourly_weather, recommendations) as cleaned DataFrames
-        
-    Raises:
-        KeyError: If required API response keys are missing
-        ValueError: If data validation fails
+    UNIT CONVERSIONS:
+    - Temperature: Celsius → Fahrenheit (°F = °C × 9/5 + 32)
+    - Precipitation: millimeters → inches (1 inch = 25.4 mm)
+    - Wind Speed: km/h → mph (1 km/h = 0.621371 mph)
     """
     try:
         logger.info("=" * 70)
@@ -391,9 +380,9 @@ def transform(data):
         # Extract raw data into DataFrames
         daily_raw = pd.DataFrame({
             'weather_date': data['daily']['time'],
-            'temp_max_f': data['daily']['temperature_2m_max'],
-            'temp_min_f': data['daily']['temperature_2m_min'],
-            'precipitation_in': data['daily']['precipitation_sum'],
+            'temp_max_f': (pd.Series(data['daily']['temperature_2m_max']) * 9/5) + 32,  # ✅ C to F
+            'temp_min_f': (pd.Series(data['daily']['temperature_2m_min']) * 9/5) + 32,  # ✅ C to F
+            'precipitation_in': pd.Series(data['daily']['precipitation_sum']) / 25.4,  # ✅ mm to inches
             'precipitation_probability': data['daily']['precipitation_probability_max'],
             'uv_index': data['daily']['uv_index_max'],
             'weather_code': data['daily']['weathercode'],
@@ -403,8 +392,8 @@ def transform(data):
         hourly_raw = pd.DataFrame({
             'weather_timestamp': data['hourly']['time'],
             'relative_humidity': data['hourly']['relative_humidity_2m'],
-            'wind_speed_mph': data['hourly']['wind_speed_10m'],
-            'soil_temp_f': data['hourly']['soil_temperature_0cm'],
+            'wind_speed_mph': pd.Series(data['hourly']['wind_speed_10m']) * 0.621371,  # ✅ km/h to mph
+            'soil_temp_f': (pd.Series(data['hourly']['soil_temperature_0cm']) * 9/5) + 32,  # ✅ C to F
             'soil_moisture': data['hourly']['soil_moisture_0_to_1cm'],
             'extracted_at': datetime.utcnow()
         })
@@ -421,6 +410,7 @@ def transform(data):
         logger.info(f"  Daily records: {len(daily_weather)}")
         logger.info(f"  Hourly records: {len(hourly_weather)}")
         logger.info(f"  Recommendations: {len(recommendations)}")
+        logger.info(f"  Sample temps: {daily_weather['temp_max_f'].iloc[0]:.1f}°F, {daily_weather['temp_min_f'].iloc[0]:.1f}°F")
         logger.info("=" * 70)
         
         return daily_weather, hourly_weather, recommendations
