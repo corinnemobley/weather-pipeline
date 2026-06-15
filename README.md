@@ -5,7 +5,7 @@ An end-to-end data engineering pipeline that acquires weather data from a REST A
 ## Architecture
 
 ```
-Open-Meteo API → Python ETL → PostgreSQL → Power BI Dashboard
+Open-Meteo API → Python ETL → PostgreSQL →    Dashboard
       ↓              ↓              ↓            ↓
   Weather Data   Transform &    Structured   Interactive
                  Validate       Tables       Visualizations
@@ -99,15 +99,6 @@ To set up:
    - `DB_PORT`: Database port (default: `5432`)
    - `DB_NAME`: Database name (default: `garden_weather_db`)
 
-
-## Power BI Integration
-
-See [Power BI Integration Guide](docs/POWER_BI_INTEGRATION.md) for:
-- Connecting Power BI Desktop to PostgreSQL
-- Creating interactive dashboards
-- Setting up automated refresh schedules
-- Best practices and troubleshooting
-
 ## Query Examples
 
 Check current weather:
@@ -162,14 +153,16 @@ schedule:
 weather-pipeline/
 ├── src/
 │   └── etl_pipeline.py          # Main ETL script
-├── docs/
-│   └── POWER_BI_INTEGRATION.md  # Power BI setup guide
+│   └── dashboard.py             # Dashboard
 ├── .github/
 │   └── workflows/
 │       └── weather-etl.yml      # Automated pipeline trigger
 ├── .env.example                 # Environment template
-├── requirements.txt             # Python dependencies
-└── README.md                    # This file
+├── ER_diagram.md                # Entity Relationship Diagram
+├── README.md                    # This file
+├── data_sources.md              # Data source
+├── project_proposal.md          # Initial project proposal
+└── requirements.txt             # Python dependencies
 ```
 
 ## Troubleshooting
